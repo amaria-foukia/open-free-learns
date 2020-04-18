@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ course.title }}
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="ad-title" style="background-color : #DCDCDC">
+
+		<div class="container">
+
+			<h1 class="text-center">
+				{{ course.title }}
+			</h1>
+
+		</div>
+	</div>
+
+	<div class="container">
+
+
+		{% for video in course.videos %}
+
+			<br><div class="row">
+
+				<div class="col-md-8 mb-3">
+
+					{{ video.iframe |raw }}
+					<p>{{ video.title }}</p>
+
+				</div>
+
+				<div class="col">
+
+					<p>{{ course.content | raw }}</p>
+					<a href="#" class="btn btn-primary mt-4">Enregistrer dans ma playlist !</a>
+
+				</div>
+
+			</div><hr>
+
+
+		{% endfor %}
+
+
+	</div>
+{% endblock %}

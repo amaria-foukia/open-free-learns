@@ -7,7 +7,8 @@
 
 {% block body %}
 
-	<div class="jumbotron">
+	<div class="jumbotron style=" style="background-color : #DCDCDC !important;">
+
 		<h1 class="display-3">Open Free Learns</h1>
 		<p class="lead">Trouvez des réponses vidéos ciblées à toutes vos questions !</p>
 
@@ -16,16 +17,17 @@
 		</p><br>
 
 		<p class="lead">
-			<a class="btn btn-info btn-lg mt" href="#" role="button">Voir nos réponses !</a>
+			<a class="btn btn-info btn-lg mt" href="{{path('courses_index')}}" role="button">Voir nos réponses !</a>
 		</p>
 
 	</div>
 
-	<div class="container">
+	<div class="container mb-10">
 
-		<h2 class="h1 my-5">Vidéos stars</h2>
+		<h2 class="h1 my-5">Vidéos les plus populaires</h2>
 
-		<div class="row">
+		<div class="row ">
+
 
 			<div class="col-md-4">
 
@@ -33,7 +35,7 @@
 					<div class="card-header text-center">
 						<small>Pas encore noté</small>
 					</div>
-					<img src="http://placehold.it/200x200" style="height: 180px; width: 100%; display: block;" alt="card image"/>
+					<img src="./image/symfony.jpeg" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
 
 					<div class="card-body">
 						<h4 class="card-title text-center">
@@ -53,7 +55,7 @@
 					<div class="card-header text-center">
 						<small>Pas encore noté</small>
 					</div>
-					<img src="http://placehold.it/200x200" style="height: 180px; width: 100%; display: block;" alt="card image"/>
+					<img src="./image/python.png" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
 
 
 					<div class="card-body">
@@ -76,7 +78,7 @@
 						<small>Pas encore noté</small>
 					</div>
 
-					<img src="http://placehold.it/200x200" style="height: 180px; width: 100%; display: block;" alt="card image"/>
+					<img src="./image/php.jpeg" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
 
 
 					<div class="card-body">
@@ -91,6 +93,7 @@
 			</div>
 
 		</div>
+		<br>
 
 
 	</div>
