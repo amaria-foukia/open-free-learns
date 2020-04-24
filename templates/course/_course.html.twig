@@ -1,0 +1,23 @@
+{% set url = path('courses_show', {'slug': course.slug} )%}
+
+<div class="col-md-4"><br>
+
+	<div class="card border-dark mb-3" style="max-width: 20rem;">
+
+		<div class="card-header text-center">
+			<small>Pas encore noté</small>
+		</div>
+
+		<a href="{{ url }}">
+			<img src="{{course.coverImage}}" style="height: 180px; width: 100%; display: block;" alt="card image"/>
+		</a>
+
+		<div class="card-body">
+			<h6 class="card-title text-center">
+				<a href="{{ url }}">{{course.title}}</a>
+			</h6>
+		</div>
+
+	</div>
+
+</div>

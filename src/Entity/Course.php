@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -57,6 +58,17 @@ class Course
      * @Assert\Valid()
      */
     private $videos;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $level;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     public function __construct()
     {
@@ -172,6 +184,30 @@ class Course
                 $video->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?string
+    {
+        return $this->level;
+    }
+
+    public function setLevel(string $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

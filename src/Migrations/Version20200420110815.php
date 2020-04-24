@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200414142115 extends AbstractMigration
+final class Version20200420110815 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20200414142115 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE course DROP video');
+        $this->addSql('ALTER TABLE course ADD level VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20200414142115 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE course ADD video LONGTEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE course DROP level');
     }
 }

@@ -48,6 +48,8 @@ class CourseController extends AbstractController
                 $manager->persist($video);
             }
 
+            $course->setAuthor($this->getUser());
+
             $manager->persist($course);
             $manager->flush();
 

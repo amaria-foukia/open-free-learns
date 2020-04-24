@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Course;
 use App\Form\VideoType;
-use Symfony\Component\Form\AbstractType;
+//use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -65,6 +65,12 @@ class CourseType extends ApplicationType
                     'allow_add'      => true,
                     'allow_delete'   => true
                 ]
+            )
+
+            ->add(
+                'level',
+                TextType::class,
+                $this->getConfiguration("Niveau du cours :", "Donnez le niveau du cours")
             );
     }
 

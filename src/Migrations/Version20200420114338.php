@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200413170259 extends AbstractMigration
+final class Version20200420114338 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200413170259 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE course (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, introduction LONGTEXT NOT NULL, content LONGTEXT DEFAULT NULL, cover_image VARCHAR(255) DEFAULT NULL, video LONGTEXT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE course ADD author_id INT NOT NULL');
+        $this->addSql('ALTER TABLE course ADD CONSTRAINT FK_169E6FB9F675F31B FOREIGN KEY (author_id) REFERENCES user (id)');
+        $this->addSql('CREATE INDEX IDX_169E6FB9F675F31B ON course (author_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200413170259 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE course');
+        $this->addSql('ALTER TABLE course DROP FOREIGN KEY FK_169E6FB9F675F31B');
+        $this->addSql('DROP INDEX IDX_169E6FB9F675F31B ON course');
+        $this->addSql('ALTER TABLE course DROP author_id');
     }
 }

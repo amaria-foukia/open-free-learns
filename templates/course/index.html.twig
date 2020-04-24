@@ -5,50 +5,19 @@
 
 {% block body %}
 
-	<div class="container"><br>
+	<div class="container">
 
-		<h1 my-5>Toutes nos vidéos</h1>
+		<h1 class="my-3">Toutes nos vidéos</h1>
 
 		<p>
 			Trouvez toutes les réponses à vos questions sur de nombreux sujets et langages informatiques !
-
-		</p><br>
+		</p>
 
 		<div class="row"><br>
 			{% for course in courses %}
-
-				{% set url = path('courses_show', {'slug': course.slug} )%}
-
-				<div class="col-md-4"><br>
-
-					<div class="card border-dark mb-3" style="max-width: 20rem;">
-						<div class="card-header text-center">
-							<small>Pas encore noté</small>
-						</div>
-
-						<a href="{{ url }}">
-							<img src="{{course.coverImage}}" style="height: 180px; width: 100%; display: block;" alt="card image"/>
-						</a>
-
-						<div class="card-body">
-							<h4 class="card-title text-center">
-								<a href="{{ url }}">{{course.title}}</a>
-							</h4>
-
-							<p class="card-text">{{course.introduction}}</p>
-
-
-						</div>
-					</div>
-
-				</div>
-
-
+				{% include 'course/_course.html.twig' %}
 			{% endfor %}
-
 		</div>
 
 	</div>
-
-
 {% endblock %}

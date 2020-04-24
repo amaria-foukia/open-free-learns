@@ -17,13 +17,37 @@ div.ad-title h1 , div.ad-title h1{
   text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
 }
 
-/* footer {
-  position: sticky;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
+.badge{
+ padding: 4px !important;
 }
 
- */
+.avatar {
+    max-width: 90px;
+    max-height: 90px;
+    border-radius: 50%;
+}
+
+.avatar-medium {
+        max-width: 45px;
+        max-height: 45px;
+    }
+
+.avatar-mini {
+        max-width: 24px;
+        max-height: 24px;
+    }
+
+.avatar-micro {
+        max-width: 20px;
+        max-height: 20px;
+    }
+
+.background-img {
+    background-image: url("https://picsum.photos/seed/picsum/1000/400") !important;
+    background-position: center;
+    background-size: cover;
+}
+
+
+
 
