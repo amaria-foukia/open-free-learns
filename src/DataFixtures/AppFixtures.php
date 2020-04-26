@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Entity\Course;
@@ -25,6 +26,30 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr-FR');
+
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $managerRole = new Role();
+        $managerRole->setTitle('ROLE_MANAGER');
+        $manager->persist($managerRole);
+
+        $adminUser = new User();
+
+        $adminUser->setFirstName('Amaria')
+            ->setLastName('Foukia')
+            ->setEmail('amaria@symfony.com')
+            ->setHash($this->encoder->encodePassword($adminUser, 'voyager'))
+            ->setPicture('https://randomuser.me/api/portraits/women/42.jpg')
+            ->setDescription($faker->sentence())
+            ->addUserRole($adminRole)
+            ->addUserRole($managerRole);
+
+        $manager->persist($adminUser);
+
+
+
 
         //gestion des utilisateurs
         $users = [];
@@ -54,9 +79,12 @@ class AppFixtures extends Fixture
         }
 
         //gestion des cours
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 15; $i++) {
+            $coverImage = "https://picsum.photos/1000/350?random=";
+            $n = $faker->numberBetween(1, 200);
+            $coverImage .= "https://picsum.photos/1200/350?random=" . $n;
+
             $title = $faker->sentence();
-            $coverImage = $faker->imageUrl(1000, 350);
             $introduction = $faker->paragraph(2);
             $content = '<p>' . join('<p></p>', $faker->paragraphs(2)) . '</p>';
 

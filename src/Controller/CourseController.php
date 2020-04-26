@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Course;
 use App\Entity\Video;
+use App\Entity\Course;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 class CourseController extends AbstractController
 {
     /**
+     * Permet d'afficher tous les cours 
+     * 
      * @Route("/courses", name="courses_index")
      */
     public function index(CourseRepository $repo)
@@ -26,10 +31,12 @@ class CourseController extends AbstractController
     }
 
     /**
-     * creation d'un cours
+     * Création d'un cours
      * 
      * @Route("courses/new", name="courses_create")
-     *
+     * 
+     * @Security("is_granted('ROLE_ADMIN') and is_granted('ROLE_MANAGER')", message="Vous n'avez pas l'autorisation de créer un cours, contactez l'admistrateur ... ")
+     * 
      * @return Response
      */
     public function create(Request $request)
@@ -74,6 +81,8 @@ class CourseController extends AbstractController
      *
      * @Route("/courses/{slug}/edit", name="courses_edit")
      * 
+     * @Security("is_granted('ROLE_ADMIN') and is_granted('ROLE_MANAGER') and user === course.getAuthor()", message="Vous n'êtes pas autorisé à modifier cette annonce !")
+     * 
      * @return Response
      */
     public function edit(Course $course, Request $request)
@@ -109,6 +118,31 @@ class CourseController extends AbstractController
             'course' => $course
         ]);
     }
+
+    /**
+     * Permet de supprimer un cours
+     * 
+     * @Route("/courses/{slug}/delete", name="courses_delete")
+     * @Security("is_granted('ROLE_MANAGER') and user == course.getAuthor()", message="Vous n'avez pas le droit de supprimer ce cours")
+     *
+     * @param Course $course
+     * 
+     * @return Response
+     */
+    public function delete(Course $course)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($course);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'annonce <strong>{$course->getTitle()}</strong> a bien été supprimée !"
+        );
+
+        return $this->redirectToRoute("courses_index");
+    }
+
 
     /**
      * Permet d'afficher une seule annonce 

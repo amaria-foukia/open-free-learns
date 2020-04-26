@@ -89,6 +89,7 @@ class AccountController extends AbstractController
      * Permet de modifier le profil utilisateur
      * 
      * @Route("/account/profile", name="account_profile")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
@@ -121,6 +122,7 @@ class AccountController extends AbstractController
      * Permet de modifier le mot de passe
      *
      * @Route("/account/password-update", name="account_password")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */

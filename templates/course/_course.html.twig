@@ -13,11 +13,20 @@
 		</a>
 
 		<div class="card-body">
+
 			<h6 class="card-title text-center">
-				<a href="{{ url }}">{{course.title}}</a>
+				{{course.title}}
 			</h6>
+			<a href="{{ url }}" class="btn btn-outline-primary btn-sm btn-block">Voir la réponse</a>
+
+
+			{% if app.user and app.user == course.author %}
+				<a href=" {{ path('courses_edit', {'slug' : course.slug } ) }}" class=" btn btn-outline btn-sm btn-block">Modifier mon cours</a>
+				<a href="{{ path('courses_delete', {'slug': course.slug})}}" class="btn btn-outline-danger btn-sm btn-block" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{course.title}} ?`)">Supprimer le cours</a>
+
+			{% endif %}
+
 		</div>
 
 	</div>
-
 </div>

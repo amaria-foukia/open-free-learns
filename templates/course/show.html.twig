@@ -20,6 +20,14 @@
 	</div>
 
 	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<a href="{{ path('courses_delete', {'slug': course.slug})}}" class="btn btn-outline-danger btn-lg mt-4" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{course.title}} ?`)">
+					<i class="fas fa-trash fa-lg text-center"></i>
+					Supprimer Le Cours
+				</a>
+			</div>
+		</div>
 
 		{% for video in course.videos %}
 
@@ -38,10 +46,10 @@
 						<div class="col-2">
 							<a href="{{path('user_show', {'slug' : a.slug})}}"><img class="avatar avatar-medium" src="{{a.picture}}"/></a>
 						</div>
+
 						<div class="col-8">
 							<a href="{{path('user_show', {'slug' : a.slug})}}">
 								<span>
-
 									<strong>{{a.fullName}}</strong>
 								</span>
 
@@ -55,7 +63,6 @@
 					<br><p>
 						<strong>Le formateur :</strong>
 						{{a.description}}</p>
-
 					<hr>
 
 					<p>
@@ -64,7 +71,11 @@
 						?
 					</p>
 
-					<a href="#" class="btn btn-outline-primary btn-sm mt-4">Enregistrer dans ma playlist !</a>
+					<a href="#" class="btn btn-outline btn-sm mt-4">Enregistrer dans ma playlist !</a>
+
+					{% if app.user and app.user == course.author %}
+						<a href="{{ path('courses_edit', {'slug' : course.slug }) }}" class="btn btn-outline btn-sm mt-4">Modifier mon cours</a>
+					{% endif %}
 				</div>
 
 			</div><hr>
