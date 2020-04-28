@@ -4,9 +4,14 @@
 {% endblock %}
 
 {% block body %}
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{path('homepage')}}">Home</a>
+		</li>
+		<li class="breadcrumb-item active">Toutes les réponses</li>
+	</ol>
 
 	<div class="container">
-
 		<h1 class="my-3">Toutes nos vidéos</h1>
 
 		<p>
@@ -18,6 +23,5 @@
 				{% include 'course/_course.html.twig' %}
 			{% endfor %}
 		</div>
-
 	</div>
 {% endblock %}

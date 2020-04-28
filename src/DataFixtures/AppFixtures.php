@@ -8,6 +8,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Entity\Course;
+use App\Entity\History;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -49,8 +50,6 @@ class AppFixtures extends Fixture
         $manager->persist($adminUser);
 
 
-
-
         //gestion des utilisateurs
         $users = [];
         $genres = ['male', 'female'];
@@ -79,11 +78,8 @@ class AppFixtures extends Fixture
         }
 
         //gestion des cours
-        for ($i = 1; $i <= 15; $i++) {
-            $coverImage = "https://picsum.photos/1000/350?random=";
-            $n = $faker->numberBetween(1, 200);
-            $coverImage .= "https://picsum.photos/1200/350?random=" . $n;
-
+        for ($i = 1; $i <= 30; $i++) {
+            $coverImage = "https://picsum.photos/1000/350?random=" . mt_rand(1, 500);
             $title = $faker->sentence();
             $introduction = $faker->paragraph(2);
             $content = '<p>' . join('<p></p>', $faker->paragraphs(2)) . '</p>';
@@ -107,6 +103,20 @@ class AppFixtures extends Fixture
                     ->setCourse($course);
 
                 $manager->persist($video);
+            }
+
+            //Gestion des historiques 
+            for ($j = 1; $j <= mt_rand(0, 10); $j++) {
+                $history = new History();
+
+                $createdAt = $faker->dateTimeBetween('-6 months');
+                $student = $users[mt_rand(0, count($users) - 1)];
+
+                $history->setStudent($student)
+                    ->setCourse($course)
+                    ->setCreatedAt($createdAt);
+
+                $manager->persist($history);
             }
 
             $manager->persist($course);

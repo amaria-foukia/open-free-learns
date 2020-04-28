@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre historique
+{% endblock %}
+
+{% block body %}
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{path('homepage')}}">Home</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{path('account_index')}}">Mon Compte</a>
+		</li>
+		<li class="breadcrumb-item active">Historique</li>
+	</ol>
+
+	<div class="container">
+		<h1 class="h2 my-4">Mon historique</h1>
+		<div class="row">
+			<span class="col-9">Réponses Vidéos</span>
+			<span class="col-3">Dernières Activités</span>
+		</div>
+
+		<hr>
+		{% for history in app.user.histories %}
+			{% set course = history.course %}
+			<div class="row mt-5 d-flex justify-content-between">
+				<div class="col-md-2">
+					<img src="{{course.coverImage}}" alt="Photo de l'annonce {{course.title}}" class="img-fluid" style="width:175px; height:100px;">
+				</div>
+				<div class="col-md-6">
+					<h5>{{course.title}}</h5>
+					<p>{{course.introduction}}
+						<a href="{{ path('history_show', {'id': history.id}) }}" class="">
+							Voir le détail
+						</a>
+					</p>
+
+				</div>
+				<div class="col-md-3">
+					<h5>Vue le :
+						{{history.createdAt | date('d/m/yy')}}</h5>
+
+					{# endDate and startDate are strings or DateTime objects #}
+					{% set difference = date("now").diff(date(history.createdAt)) %}
+					{% set leftDays = difference.days %}
+					{% if leftDays == 1 %}
+						Il ya a 1 jour
+					{% else %}
+						Il y a
+						{{ leftDays }}
+						jours
+					{% endif %}
+
+				</div>
+
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

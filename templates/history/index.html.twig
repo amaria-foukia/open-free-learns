@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HistoryController!
+{% endblock %}
+
+{% block body %}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Etudiant</th>
+				<th>A débuté le :</th>
+				<th>Titre du cours :</th>
+				<th>Formateur :</th>
+
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for history in histories %}
+				<tr>
+					<td><img src="{{ history.course.coverImage }}" style="width:100px; height:50px;"/></td>
+					<td>{{ history.student.fullName }}</td>
+					<td>{{ history.createdAt | date }}</td>
+					<td>{{ history.course.title  }}</td>
+					<td>{{ history.course.author.fullName}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

@@ -149,6 +149,7 @@ class CourseController extends AbstractController
      * 
      * @Route("/courses/{slug}", name="courses_show")
      * 
+     * 
      * @return Response
      */
     public function show(Course $course)

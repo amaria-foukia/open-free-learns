@@ -180,4 +180,16 @@ class AccountController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
+
+    /**
+     * Permet d'afficher la liste des réservations faites par l'utilisateur
+     *
+     * @Route("/account/history", name="account_histories")
+     * 
+     * @return Reponse
+     */
+    public function histories()
+    {
+        return $this->render('account/histories.html.twig');
+    }
 }
