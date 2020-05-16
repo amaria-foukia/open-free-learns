@@ -28,6 +28,11 @@ class Role
      */
     private $users;
 
+    public function setUsers(array $users)
+    {
+        $this->users == $users;
+    }
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -74,5 +79,10 @@ class Role
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

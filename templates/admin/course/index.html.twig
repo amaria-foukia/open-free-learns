@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des annonces!
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<h1 class="my-5">Administration des cours</h1>
+
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-light">
+					<th>Id</th>
+					<th>Titre</th>
+					<th>Formateur</th>
+					<th class="text-center">Historiques</th>
+					<th class="text-center">Note</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for course in courses %}
+					<tr>
+
+						<td>{{course.id}}</td>
+						<td>{{course.title}}</td>
+						<td>
+							<img src="{{course.author.picture}}" alt="Avatar de {{course.author.fullName}}" class="avatar avatar-micro mr-2">
+							{{course.author.fullName}}
+						</td>
+						<td class="text-center">
+							<h5>
+								<span class="badge badge-secondary rounded text-dark">{{course.histories | length}}
+									vues
+								</span>
+							</h5>
+						</td>
+						<td class="text-center">
+							<h5>
+								<span class="badge badge-secondary rounded text-dark">{{course.avgRatings | number_format(1, ',', ' ')}}</span>
+							</h5>
+
+						</td>
+						<td>
+							<a href="{{path('admin_courses_edit', {'slug': course.slug})}}" class="btn btn-secondary">
+								<i class="fas fa-edit fa-lg"></i>
+							</a>
+							<a href="{{path('admin_courses_delete', {'slug': course.slug})}}" class="btn btn-outline-danger">
+								<i class="fas fa-trash fa-lg"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}

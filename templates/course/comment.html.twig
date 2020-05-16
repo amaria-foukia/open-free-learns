@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ course.title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container my-5 ">
+
+		<div class="card m-auto" style="width: 50%">
+
+			<h3 class="card-header card-title">
+				Notez ce cours et laissez un commentaire !
+			</h3>
+
+			<div class="card-body">
+
+				{{ form_start(form) }}
+				{{ form_row(form.rating) }}
+				{{ form_row(form.content) }}
+
+				<button type="submit" style="text-align: right" class="btn btn-warning btn-lg rounded float-right">
+					Commenter
+					<i class="fas fa-comments fa-lg"></i>
+				</button>
+
+				{{ form_end(form) }}
+
+			</div>
+
+		</div>
+	</div>
+
+
+{% endblock %}

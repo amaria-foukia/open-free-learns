@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use DateTime;
+use ArrayAccess;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistoryRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * 
  */
 class History
 {
@@ -28,6 +31,20 @@ class History
      * @ORM\JoinColumn(nullable=false)
      */
     private $course;
+
+    /**
+     * Permet de mettre en place la date de création
+     *
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function prePersist()
+    {
+        if (empty($this->createdAt)) {
+            $this->createdAt = new \DateTime();
+        }
+    }
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,13 +91,6 @@ class History
 
         return $this;
     }
-
-    /*     public function getDays()
-    {
-        $date = $this->createdAt = new \DateTime('now');
-        return ($date - $this->createdAt);
-    }
- */
 
     public function __toString()
     {

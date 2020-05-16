@@ -12,14 +12,7 @@
 		<h1 class="h2 text-center">Creer un nouveau cours</h1><br>
 
 		{{form_start(form)}}
-		{{form_row(form.title)}}
-		{{form_row(form.slug)}}
-		{{form_row(form.introduction)}}
-		{{form_row(form.content)}}
-		{{form_row(form.coverImage)}}
-		{{form_row(form.level) }}
-		{{form_row(form.videos) }}
-
+		{{form_widget(form)}}
 
 		<div class="container my-5 text-center">
 			<button type="submit" class="btn btn-primary btn-lg">

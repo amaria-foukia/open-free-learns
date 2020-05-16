@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta charset="UTF-8">
+		<title>
+			Open Free Learns -
+			{% block title %}Connexion Administration
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
+
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				height: 100vh;
+			}
+			.card {
+				margin-top: 10%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="col-md-5">
+			<div class="card bg-light">
+				<div class="card-header">
+					<h4 class="card-title">
+						<i class="fas fa-lock"></i>
+						Connexion à l'administration
+					</h4>
+				</div>
+				<div class="card-body">
+					{% if hasError %}
+						<div class="alert alert-warning">
+							<p>Le nom d'utilisateur ou le mot de passe est/sont incorrect(es)</p>
+						</div>
+					{% endif %}
+					<form method="post">
+						<div class="form-group">
+							<label for="_username">Email</label><input type="text" class="form-control" placeholder="Adresse email ..." name="_username" value="{{ username }}"></div>
+
+						<div class="form-group">
+							<label for="_password">Mot de passe</label><input type="password" class="form-control" placeholder="Mot de passe ..." name="_password"></div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">
+								<i class="fas fa-lock-open"></i>
+								Connexion
+							</button>
+							<a href="{{ path('homepage') }}" class="btn btn-link">
+								<i class="fas fa-arrow-circle-left"></i>
+								Retour au site
+							</a>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

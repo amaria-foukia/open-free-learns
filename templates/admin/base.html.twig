@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>
 			Open Free Learns -
-			{% block title %}Bienvenue Sur Open Free Learns
+			{% block title %}Bienvenue sur l'administration d'Open Free Learns
 			{% endblock %}
 		</title>
 		<link rel="stylesheet" href="/css/app.css">
@@ -13,15 +13,17 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
 		</head>
 		<body>
-			{% include 'partials/header.html.twig' %}
+			{% include 'admin/partials/header.html.twig' %}
 
 			{% block body %}{% endblock %}
 
-			{% include 'partials/footer.html.twig' %}
+
+			{% include 'admin/partials/footer.html.twig' %}
 
 			<script src="/js/jquery.min.js"></script>
 			<script src="/js/popper.min.js"></script>
 			<script src="/js/bootstrap.min.js"></script>
+
 
 			{% block javascripts %}{% endblock %}
 		</body>

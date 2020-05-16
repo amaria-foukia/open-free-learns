@@ -6,10 +6,24 @@
 
 {% block body %}
 
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{path('homepage')}}">Home</a>
+		</li>
+
+		<li class="breadcrumb-item">
+			<a href="{{path('courses_index')}}">Toutes les réponses</a>
+		</li>
+
+		<li class="breadcrumb-item active">
+			{{course.title}}
+		</li>
+	</ol>
+
+
 	{% set a = course.author %}
 
 	<div class="ad-title" style="background-color : #E9ECEF">
-
 		<div class="container">
 
 			<h1 class="text-center">
@@ -23,18 +37,21 @@
 		<div class="row">
 			<div class="col-3">
 				{% if app.user and app.user == course.author %}
-					<a href="{{ path('courses_delete', {'slug': course.slug})}}" class="btn btn-outline-danger btn-lg mt-4" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{course.title}} ?`)">
-						<i class="fas fa-trash fa-lg text-center"></i>
-						Supprimer Le Cours
+					<a href="{{ path('courses_delete', {'slug': course.slug})}}" class="btn btn-outline btn-lg mt-4 rounded" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{course.title}} ?`)">
+						<span>Supprimer le cours &nbsp
+
+						</span>
+						<i class="fas fa-trash fa-lg"></i>
 					</a>
 				{% endif %}
 			</div>
 		</div>
+	</div>
 
+	<div class="container">
 		{% for video in course.videos %}
 
 			<br><div class="row">
-
 				<div class="col-md-8 mb-3">
 					{{ video.iframe | raw }}
 					<p>{{ video.title }}</p>
@@ -80,9 +97,87 @@
 					{% endif %}
 				</div>
 
-			</div><hr>
-
+			</div>
 		{% endfor %}
 
+		<div class="container">
+			{% set comment = history.course.commentFromAuthor(app.user) %}
+
+			{% if comment is not null %}
+
+				<h2 class="alert-heading">Votre avis compte !</h2>
+
+				<strong>
+					<p>Vous avez dit le
+						{{comment.createdAt | date('d/m/yy')}}
+						:
+					</p>
+				</strong>
+
+				<blockquote>
+					<h6>{{comment.content}}</h6>
+				</blockquote>
+
+				<strong>Note :
+				</strong>
+
+				{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+
+			{% else %}
+				<a href="{{path('comment_create', {'slug': course.slug} )}}" class="btn btn-warning btn-lg">
+					Noter ce cours
+					<i class="fas fa-star"></i>
+
+				</a>
+			{% endif %}
+		</div>
+
+		<div class="container my-5 ">
+			{% if course.comments|length > 0 %}
+				<div class="bg-light rounded py-2" style="background-color: #E9ECEF!important;">
+					<h4 class="text-muted text-center">
+						<div class="row align-items-center">
+
+							<div class="col">
+								Note donnée par les utilisateurs
+							</div>
+
+							<div class="col">
+								{% include 'partials/rating.html.twig' with {'rating': course.avgRatings} %}
+								<br>
+								<small>
+									(Calculée sur
+									{{ course.comments|length }}
+									avis)</small>
+							</div>
+
+						</div>
+					</h4>
+				</div>
+
+				<h2 class="mt-4">Commentaires des autres utilisateurs:</h2>
+
+				{% for comment in course.comments %}
+					<div class="bg-light rounded mb-3 py-3 px-3">
+						<strong>{{ comment.authorComment.fullName }}</strong>
+						a dit :
+						<blockquote>
+							{{comment.content}}
+						</blockquote>
+
+						<strong>Note donnée :
+
+							{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+
+						</strong>
+					</div>
+				{% endfor %}
+			{% else %}
+				<h2>Cette annonce n'a pas encore reçu de commentaires ...</h2>
+			{% endif %}
+
+		</div>
 	</div>
+
+
 {% endblock %}

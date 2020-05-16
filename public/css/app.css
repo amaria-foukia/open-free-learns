@@ -48,6 +48,17 @@ div.ad-title h1 , div.ad-title h1{
     background-size: cover;
 }
 
+span.rating i {
+    color: goldenrod;
+}
+
+.alert a {
+  text-decoration: none;
+}
+
+.alert .btn {
+  color: white;
+}
 
 
 

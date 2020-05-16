@@ -88,6 +88,11 @@ class User implements UserInterface
      */
     private $histories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="authorComment", orphanRemoval=true)
+     */
+    private $comments;
+
     public function getFullName()
     {
         return "{$this->firstName} {$this->lastName}";
@@ -113,6 +118,7 @@ class User implements UserInterface
         $this->courses = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->histories = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -323,8 +329,39 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthorComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthorComment() === $this) {
+                $comment->setAuthorComment(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return $this->name;
+        return $this->slug;
     }
 }

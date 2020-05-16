@@ -2,39 +2,30 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\User;
+use App\Entity\Course;
 use App\Entity\History;
+use App\Form\HistoryType;
+use App\Repository\HistoryRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HistoryController extends AbstractController
 {
-    /**
-     * @Route("/history", name="history_index")
-     * 
-     * Security("is_granted('ROLE_USER') and user == course.getAuthor()")
-     * 
-     *  @return Response
-     * 
-     */
-    public function history()
-    {
-        $histories = $this->getDoctrine()
-            ->getRepository(History::class)
-            ->findAll();
-
-        return $this->render('history/index.html.twig', [
-            'histories' => $histories
-        ]);
-    }
 
     /**
-     * @Route("/history/{id}", name="history_show")
+     * Affiche le détail de l'historique 
+     * 
+     * @Route("/histories/{id}", name="history_show")
      * 
      * @return Response
      */
-    public function historyByUser($id)
+    public function show($id)
     {
         $history = $this->getDoctrine()
 

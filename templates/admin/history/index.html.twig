@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Tous les historiques
 {% endblock %}
@@ -12,13 +12,12 @@
 		<table class="table table-hover">
 			<thead>
 				<tr class="table-light">
-
 					<th>Image</th>
 					<th>Etudiant</th>
 					<th>A débuté le :</th>
 					<th>Titre du cours :</th>
 					<th>Formateur :</th>
-
+					<th>Actions :</th>
 				</tr>
 			</thead>
 
@@ -35,6 +34,14 @@
 						<td>{{ history.createdAt | date }}</td>
 						<td>{{ history.course.title  }}</td>
 						<td>{{ history.course.author.fullName}}</td>
+						<td>
+							<a href="{{path('admin_histories_edit', {'id': history.id})}}" class="btn btn-secondary">
+								<i class="fas fa-edit fa-lg"></i>
+							</a>
+							<a href="{{path('admin_histories_delete', {'id': history.id})}}" class="btn btn-outline-danger">
+								<i class="fas fa-trash fa-lg"></i>
+							</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

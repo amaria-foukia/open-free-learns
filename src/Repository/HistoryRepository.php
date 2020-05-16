@@ -36,15 +36,13 @@ class HistoryRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?History
+
+    public function findOneBySomeField($course): ?History
     {
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('h.id = :val')
+            ->setParameter('val', $course)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }

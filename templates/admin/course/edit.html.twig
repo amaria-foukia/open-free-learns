@@ -1,0 +1,134 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification des cours
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+	<div class="container-fluid mt-5">
+
+		<div class="col">
+
+			<div class="card">
+
+				<h3 class="card-header card-title">Modification du cours :
+					<em>{{course.title}}</em>
+				</h3>
+
+				<div class="card-body">
+					<h6 class="card-subtitle mb-2 text-muted"></h6>
+					<p class="card-text">
+
+						{{form_start(form)}}
+
+						{{form_widget(form)}}
+
+
+						<button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+					</p>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col"><br>
+
+			<div class="card">
+
+				<h3 class="card-header card-title">Commentaires liés à l'annonce :
+					<em>{{course.title}}</em>
+				</h3>
+
+				<div class="card-body">
+
+					<table class="table">
+						<thead>
+							<tr class="table-light">
+								<th>Id</th>
+								<th>Utilisateur</th>
+								<th>Note</th>
+								<th>Commentaire</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for comment in course.comments %}
+								<tr>
+									<td>{{comment.id}}</td>
+									<td>{{comment.authorComment.fullName}}</td>
+									<td>{{comment.rating}}</td>
+									<td>{{comment.content}}</td>
+									<td>
+										<a href="#" class="btn btn-secondary">
+											<i class="fas fa-pen"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+			{{form_end(form)}}
+
+		</div>
+
+	{% endblock %}
+
+	{% block _course_videos_widget %}
+		{{ form_widget(form) }}
+	{% endblock %}
+
+	{% block _course_videos_entry_row %}
+		<div id="block_{{id}}">
+			{{ form_widget(form) }}
+		</div>
+	{% endblock %}
+
+	{% block _course_videos_entry_widget %}
+
+		<div class="row align-items-center mb-3 d-flex justify-content-between">
+
+			<div class="col-md-6">
+				{% if value %}
+					<div style="visibility:hidden;">
+						{{ value.iframe }}
+					</div>
+					{{ value.iframe | raw}}
+				{% endif %}
+			</div>
+			<div class="col-md-4">
+				{{ form_row(form.iframe) }}
+				{{ form_row(form.title) }}
+			</div>
+			<div class="col-md-1">
+				<button type="button" class="btn btn-outline-danger btn-lg" data-action="delete" data-target="#block_{{id}}">
+					<i class="fas fa-trash fa-2x"></i>
+				</button>
+			</div>
+		</div>
+
+	{% endblock %}
+
+
+	{% block javascripts %}
+
+		<script>
+			$(document).ready(function () {
+$('[data-action="delete"]').on('click', function () {
+const target = this.dataset.target;
+$(target).remove();
+});
+});
+		</script>
+
+	{% endblock %}

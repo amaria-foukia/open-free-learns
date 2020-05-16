@@ -62,6 +62,7 @@ class CourseType extends ApplicationType
                 CollectionType::class,
                 [
                     'entry_type'     => VideoType::class,
+                    'required'       => false,
                     'allow_add'      => true,
                     'allow_delete'   => true
                 ]

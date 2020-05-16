@@ -1,12 +1,8 @@
 {% set url = path('courses_show', {'slug': course.slug} )%}
 
-<div class="col-md-4"><br>
+<div class="col-md-3"><br>
 
-	<div class="card border-dark mb-3" style="max-width: 20rem;">
-
-		<div class="card-header text-center">
-			<small>Pas encore noté</small>
-		</div>
+	<div class="card bg-light mb-3" style="max-width: 20rem;">
 
 		<a href="{{ url }}">
 			<img src="{{course.coverImage}}" style="height: 180px; width: 100%; display: block;" alt="card image"/>
@@ -17,16 +13,25 @@
 			<h6 class="card-title text-center">
 				{{course.title}}
 			</h6>
-			<a href="{{ url }}" class="btn btn-outline-primary btn-sm btn-block">Voir la réponse</a>
-
+			<a href="{{ url }}" class="btn btn-outline-primary btn-sm btn-block rounded">Voir la réponse</a>
 
 			{% if app.user and app.user == course.author %}
 				<a href=" {{ path('courses_edit', {'slug' : course.slug } ) }}" class=" btn btn-outline btn-sm btn-block">Modifier mon cours</a>
 				<a href="{{ path('courses_delete', {'slug': course.slug})}}" class="btn btn-outline-danger btn-sm btn-block" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce : {{course.title}} ?`)">Supprimer le cours</a>
-
 			{% endif %}
 
 		</div>
+
+		<div class="card-footer text-center">
+
+			{% if course.comments|length > 0 %}
+				{% include 'partials/rating.html.twig' with {'rating': course.avgRatings} %}
+			{% else %}
+				<small>Pas encore noté</small>
+			{% endif %}
+
+		</div>
+
 
 	</div>
 </div>

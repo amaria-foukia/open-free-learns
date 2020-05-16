@@ -14,48 +14,62 @@
 		<li class="breadcrumb-item active">Historique</li>
 	</ol>
 
-	<div class="container">
+	<div class="container-fluid">
+
 		<h1 class="h2 my-4">Mon historique</h1>
-		<div class="row">
-			<span class="col-9">Réponses Vidéos</span>
-			<span class="col-3">Dernières Activités</span>
-		</div>
 
-		<hr>
-		{% for history in app.user.histories %}
-			{% set course = history.course %}
-			<div class="row mt-5 d-flex justify-content-between">
-				<div class="col-md-2">
-					<img src="{{course.coverImage}}" alt="Photo de l'annonce {{course.title}}" class="img-fluid" style="width:175px; height:100px;">
-				</div>
-				<div class="col-md-6">
-					<h5>{{course.title}}</h5>
-					<p>{{course.introduction}}
-						<a href="{{ path('history_show', {'id': history.id}) }}" class="">
-							Voir le détail
-						</a>
-					</p>
+		<table class="table table-hover">
 
-				</div>
-				<div class="col-md-3">
-					<h5>Vue le :
-						{{history.createdAt | date('d/m/yy')}}</h5>
+			<thead>
+				<tr class="table-light">
+					<th scope="row">
+						<h5>
+							Réponses Vidéos
+						</h5>
+					</th>
 
-					{# endDate and startDate are strings or DateTime objects #}
-					{% set difference = date("now").diff(date(history.createdAt)) %}
-					{% set leftDays = difference.days %}
-					{% if leftDays == 1 %}
-						Il ya a 1 jour
-					{% else %}
-						Il y a
-						{{ leftDays }}
-						jours
-					{% endif %}
+					<th></th>
 
-				</div>
+					<th scope="row">
+						<span>Dernières Activités</span>
+						<span>
+							Vue le :
+						</span>
+					</th>
+				</tr>
+			</thead>
 
-			</div>
-		{% endfor %}
+			<tbody>
+				{% for history in app.user.histories  %}
+					{% set c = history.course %}
+					<tr>
+						<td>
+							<img src="{{ c.coverImage }}" alt="Photo de l'annonce {{c.title}}" class="img-fluid" style="width:175px; height:100px;">
+						</td>
+						<td>
+							<h5>{{c.title}}</h5>
+							<p>{{c.introduction}}
+								<a href="{{ path('history_show', {'id': history.id}) }}" class="">
+									Voir le détail
+								</a>
+							</p>
+
+						</td>
+						<td>
+							<p>{{history.createdAt | date('d/m/yy')}}</p>
+							{% set difference = date("now").diff(date(history.createdAt)) %}{% set leftDays = difference.days %}
+							{% if leftDays == 1 %}
+								<p>Il ya a 1 jour</p>
+							{% else %}
+								Il y a
+								{{ leftDays }}
+								jours
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 
 {% endblock %}

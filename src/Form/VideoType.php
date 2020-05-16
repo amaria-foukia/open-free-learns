@@ -18,12 +18,12 @@ class VideoType extends ApplicationType
             ->add(
                 'iframe',
                 TextareaType::class,
-                $this->getConfiguration("Iframe de la vidéo à ajouter :", "Donnez l'Iframe de la vidéo du cours")
+                $this->getConfiguration("Iframe de la vidéo :", "Donnez l'Iframe de la vidéo du cours")
             )
             ->add(
                 'title',
                 TextType::class,
-                $this->getConfiguration("Titre de la vidéo à ajouter :", "Donnez le titre de la vidéo du cours")
+                $this->getConfiguration("Titre de la vidéo :", "Donnez le titre de la vidéo du cours")
             )
             ->add('description');
     }

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Entity\Course;
+use App\Entity\Comment;
+use App\Entity\History;
 use App\Form\CourseType;
+use App\Form\CommentType;
 use App\Repository\CourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 
 class CourseController extends AbstractController
@@ -123,7 +125,7 @@ class CourseController extends AbstractController
      * Permet de supprimer un cours
      * 
      * @Route("/courses/{slug}/delete", name="courses_delete")
-     * @Security("is_granted('ROLE_MANAGER') and user == course.getAuthor()", message="Vous n'avez pas le droit de supprimer ce cours")
+     * @Security("is_granted('ROLE_USER') and user == course.getAuthor()", message="Vous n'avez pas le droit de supprimer ce cours")
      *
      * @param Course $course
      * 
@@ -148,15 +150,80 @@ class CourseController extends AbstractController
      * Permet d'afficher une seule annonce 
      * 
      * @Route("/courses/{slug}", name="courses_show")
-     * 
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
     public function show(Course $course)
     {
+        //Creation de l'historique 
+        $manager = $this->getDoctrine()->getManager();
+
+        $history = new History();
+
+        $user = $this->getUser();
+
+        $history->setStudent($user)
+            ->setCourse($course);
+
+        $manager->persist($history);
+
+        $this->addFlash(
+            'success',
+            "L'historique a été enregistré avec succès !"
+        );
+
+        $manager->flush();
 
         return $this->render('course/show.html.twig', [
-            'course' => $course
+            'course' => $course,
+            'history' => $history
+        ]);
+    }
+
+    /**
+     * Permet de noter et de commenter 
+     * 
+     * @Route("/courses/{slug}/comment", name="comment_create")
+     * @IsGranted("ROLE_USER")
+     * 
+     * @return Response
+     */
+    public function comment(Course $course, Request $request)
+    {
+
+        //Creation d'un commentaire
+
+        $comment = new Comment();
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setCourse($course)
+                ->setAuthorComment($user);
+
+            $manager->persist($comment);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Le commentaire a été enregistré avec succès !"
+            );
+
+            return $this->redirectToRoute('courses_show', ['slug' => $course->getSlug()]);
+        }
+
+        return $this->render('course/comment.html.twig', [
+            'course' => $course,
+            'form' => $form->createView()
         ]);
     }
 }
