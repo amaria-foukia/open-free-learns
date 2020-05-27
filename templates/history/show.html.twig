@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">
 			<a href="{{path('homepage')}}">Home</a>
@@ -34,7 +35,7 @@
 					<td><img src="{{ history.course.coverImage }}" style="width:175px; height:100px;" class="img-fluid"/></td>
 					<td>{{ history.student.fullName }}</td>
 					<td>{{ history.createdAt | date }}</td>
-					<td>{{ history.course.title  }}</td>
+					<td>{{ history.course.title }}</td>
 					<td>{{ history.course.author.fullName}}</td>
 				</tr>
 			</tbody>

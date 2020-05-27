@@ -9,6 +9,7 @@ use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Repository\HistoryRepository;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -192,9 +193,9 @@ class AccountController extends AbstractController
      * 
      * @return Reponse
      */
-    public function histories()
+    public function histories(HistoryRepository $repo)
     {
-        $history = new History();
+        $history = $repo->findBy([], [], 1, 0);
 
         return $this->render('account/histories.html.twig', [
             'history' => $history

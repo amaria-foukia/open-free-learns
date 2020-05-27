@@ -31,7 +31,7 @@
 						<td>{{ user.id }}</td>
 						<td>
 							<a href="{{ path('user_show', {'slug': user.slug}) }}">
-								<img src="{{ user.picture }}" style="width:100px; height:50px;"/>
+								<img src="{{ user.picture }}" class="avatar-medium"/>
 							</a>
 						</td>
 						<td>{{ user.firstName }}</td>
@@ -43,12 +43,11 @@
 								<p>{{ u.title }}</p>
 							{% endfor %}
 						</td>
-
 						<td>
 							<a href="{{path('admin_users_edit', {'slug': user.slug})}}" class="btn btn-secondary">
 								<i class="fas fa-edit fa-lg"></i>
 							</a>
-							<a href="{# {{path('admin_users_delete', {'id': user.id})}} #}" class="btn btn-outline-danger">
+							<a href="{{path('admin_users_delete', {'slug': user.slug})}}" class="btn btn-secondary" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'utilisateur : {{user.fullName}} ?`)">
 								<i class="fas fa-trash fa-lg"></i>
 							</a>
 						</td>

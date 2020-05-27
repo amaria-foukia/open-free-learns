@@ -18,11 +18,7 @@ class RoleType extends ApplicationType
         $builder
             ->add('title')
             ->add(
-                'users',
-                EntityType::class,
-                [
-                    'class' => User::class
-                ]
+                'users'
             );
     }
 

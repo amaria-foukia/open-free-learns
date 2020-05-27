@@ -8,6 +8,7 @@ use App\Entity\Comment;
 use App\Entity\History;
 use App\Form\CourseType;
 use App\Form\CommentType;
+use App\Service\Pagination;
 use App\Repository\CourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +23,15 @@ class CourseController extends AbstractController
     /**
      * Permet d'afficher tous les cours 
      * 
-     * @Route("/courses", name="courses_index")
+     * @Route("/courses/{page<\d+>?1}", name="courses_index")
      */
-    public function index(CourseRepository $repo)
+    public function index($page, Pagination $pagination)
     {
-        $courses = $repo->findAll();
+        $pagination->setEntityClass(Course::class)
+            ->setPage($page);
+
         return $this->render('course/index.html.twig', [
-            'courses' => $courses
+            'pagination' => $pagination
         ]);
     }
 

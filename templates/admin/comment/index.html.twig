@@ -12,11 +12,11 @@
 				<tr class="table-light">
 					<th>Id</th>
 					<th>Date</th>
-					<th>Auteur</th>
+					<th class="text-center">Auteur</th>
 					<th class="text-center">Commentaires</th>
 					<th class="text-center">Note</th>
 					<th class="text-center">Annonces</th>
-					<th>Actions</th>
+					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
 
@@ -51,8 +51,9 @@
 						<td>
 							<a href="{{path('admin_comments_edit', {'id': comment.id})}}" class="btn btn-secondary">
 								<i class="fas fa-edit"></i>
-							</a>
-							<a href="{{path('admin_comments_delete', {'id': comment.id})}}" class="btn btn-outline-danger">
+							</a>&nbsp;
+							<a href="{{path('admin_comments_delete', {'id': comment.id})}}" class="btn btn-secondary">
+
 								<i class="fas fa-trash fa-lg"></i>
 							</a>
 						</td>

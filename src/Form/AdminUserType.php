@@ -31,11 +31,6 @@ class AdminUserType extends ApplicationType
                     'required'       => false,
                     'allow_add'      => true,
                     'allow_delete'   => true
-                ],
-
-                EntityType::class,
-                [
-                    'class' => Role::class
                 ]
             );
     }

@@ -48,7 +48,6 @@ class AdminHistoryController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($history);
             $manager->flush();
@@ -84,7 +83,7 @@ class AdminHistoryController extends AbstractController
 
         $this->addFlash(
             'success',
-            'lhistorique a été supprimer avec succès !'
+            'lhistorique a été supprimé avec succès !'
         );
 
         return $this->redirectToRoute('admin_histories_index');

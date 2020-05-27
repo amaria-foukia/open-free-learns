@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Video;
 use App\Entity\Course;
-use App\Form\VideoType;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
+use App\Service\Pagination;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,14 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminCourseController extends AbstractController
 {
     /**
-     * @Route("/admin/courses", name="admin_courses_index")
+     * @Route("/admin/courses/{page<\d+>?1}", name="admin_courses_index")
+     * 
      */
-    public function index(CourseRepository $repo)
+    public function index($page, Pagination $pagination)
     {
-        $courses = $repo->findAll();
+        $pagination->setEntityClass(Course::class)
+            ->setPage($page);
 
         return $this->render('admin/course/index.html.twig', [
-            'courses' => $courses
+            'pagination' => $pagination
         ]);
     }
 
@@ -93,7 +94,7 @@ class AdminCourseController extends AbstractController
 
         $this->addFlash(
             'success',
-            "L'annonce <strong>{$course->getTitle()}</strong> a bien été supprimée !"
+            "La réponse <strong>{$course->getTitle()}</strong> a bien été supprimée !"
         );
 
         /*  } */

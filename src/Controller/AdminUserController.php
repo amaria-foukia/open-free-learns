@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\AdminUserType;
@@ -25,7 +26,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Permet d'apporter des modifications à un utilisateur 
      * 
      * @Route("/admin/users/{slug}/edit" , name="admin_users_edit")
      * 
@@ -44,9 +45,8 @@ class AdminUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             foreach ($user->getUserRoles() as $role) {
-                $role->setUsers($user);
+                $role->setUsers($user->getRoles());
                 $manager->persist($role);
             }
 
@@ -66,6 +66,32 @@ class AdminUserController extends AbstractController
         return $this->render('admin/user/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $user
+        ]);
+    }
+
+    /**
+     * Suppression d'un utilisateur
+     * 
+     * @Route("/admin/users/{slug}/delete" , name="admin_users_delete")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function delete(User $user)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($user);
+
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'utilisateur <strong>{$user->getFullName()}</strong> a bien été supprimée !"
+        );
+
+        return $this->redirectToRoute('admin_users_index', [
+            'slug' => $user->getSlug()
         ]);
     }
 }

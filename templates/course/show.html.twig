@@ -124,11 +124,11 @@
 				{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
 
 			{% else %}
-				<a href="{{path('comment_create', {'slug': course.slug} )}}" class="btn btn-warning btn-lg">
-					Noter ce cours
-					<i class="fas fa-star"></i>
-
-				</a>
+				<div class="container-fluid text-center">
+					<a href="{{path('comment_create', {'slug': course.slug} )}}" class="btn btn-secondary btn-lg">
+						Noter cette réponse !
+					</a>
+				</div>
 			{% endif %}
 		</div>
 
@@ -137,11 +137,9 @@
 				<div class="bg-light rounded py-2" style="background-color: #E9ECEF!important;">
 					<h4 class="text-muted text-center">
 						<div class="row align-items-center">
-
 							<div class="col">
 								Note donnée par les utilisateurs
 							</div>
-
 							<div class="col">
 								{% include 'partials/rating.html.twig' with {'rating': course.avgRatings} %}
 								<br>
@@ -150,7 +148,6 @@
 									{{ course.comments|length }}
 									avis)</small>
 							</div>
-
 						</div>
 					</h4>
 				</div>

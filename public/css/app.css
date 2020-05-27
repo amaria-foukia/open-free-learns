@@ -30,11 +30,13 @@ div.ad-title h1 , div.ad-title h1{
 .avatar-medium {
         max-width: 45px;
         max-height: 45px;
+        border-radius: 50%;
     }
 
 .avatar-mini {
         max-width: 24px;
         max-height: 24px;
+        border-radius: 50%;
     }
 
 .avatar-micro {

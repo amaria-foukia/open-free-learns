@@ -74,7 +74,7 @@ class User implements UserInterface
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="author", cascade="remove")
      */
     private $courses;
 
