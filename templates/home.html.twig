@@ -24,71 +24,13 @@
 
 	<div class="container">
 
-		<h2 class="h1 my-5">Vidéos les plus populaires</h2>
+		<h2 class="h1 my-4">Vidéos les plus populaires</h2>
 
 		<div class="row ">
 
-			<div class="col-md-3">
-				<div class="card bg-light mb-3" style="max-width: 20rem;">
-					<div class="card-header text-center">
-						<small>Pas encore noté</small>
-					</div>
-					<img src="./image/sf-5.jpeg" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
-					<div class="card-body">
-						<h4 class="card-title text-center">
-							<a href="#">Card title</a>
-						</h4>
-						<p class="card-text">Some quick example text to build on the card.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card bg-light mb-3" style="max-width: 20rem;">
-					<div class="card-header text-center">
-						<small>Pas encore noté</small>
-					</div>
-					<img src="./image/symfony.jpeg" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
-					<div class="card-body">
-						<h4 class="card-title text-center">
-							<a href="#">Card title</a>
-						</h4>
-						<p class="card-text">Some quick example text to build on the card.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card bg-light mb-3" style="max-width: 20rem;">
-					<div class="card-header text-center">
-						<small>Pas encore noté</small>
-					</div>
-					<img src="./image/python.png" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
-
-					<div class="card-body">
-						<h4 class="card-title text-center">
-							<a href="#">Card title</a>
-						</h4>
-						<p class="card-text">Some quick example text to build on the card.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card bg-light mb-3" style="max-width: 20rem;">
-					<div class="card-header text-center">
-						<small>Pas encore noté</small>
-					</div>
-					<img src="./image/php.jpeg" style="height: 150px; width: 100%; display: flex;" alt="card image"/>
-					<div class="card-body">
-						<h4 class="card-title text-center">
-							<a href="#">Card title</a>
-						</h4>
-						<p class="card-text">Some quick example text to build on the card.</p>
-					</div>
-				</div>
-			</div>
-
+			{% for data in courses %}
+				{% include 'course/_course.html.twig' with {'course': data.course} %}
+			{% endfor %}
 
 		</div>
 		<br>

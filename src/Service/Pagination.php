@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class Pagination
 {
     private $entityClass;
-    private $limit = 10;
+    private $limit = 12;
     private $currentPage = 1;
     private $manager;
     private $twig;

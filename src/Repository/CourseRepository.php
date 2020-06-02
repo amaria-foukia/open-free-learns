@@ -19,6 +19,19 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
+
+    public function getBestCourses($limit)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c as course, AVG(o.rating) as avgRatings')
+            ->join('c.comments', 'o')
+            ->groupBy('c')
+            ->orderBy('avgRatings', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */

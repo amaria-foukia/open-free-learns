@@ -321,7 +321,6 @@ class Course
 
     public function __toString()
     {
-
         return $this->name;
     }
 }

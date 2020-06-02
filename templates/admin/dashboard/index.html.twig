@@ -1,0 +1,154 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col">
+				<div class="card text-info border-info mb-3 text-center">
+					<div class="card-body">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="col-5">
+								<i class="fas fa-users fa-7x"></i>
+							</div>
+							<div class="col-6">
+								<h4 class="card-title">
+									{{ stats.users }}<br>
+									Utilisateurs</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-success border-success mb-3 text-center">
+					<div class="card-body">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="col-5">
+								<i class="far fa-play-circle fa-7x"></i>
+							</div>
+							<div class="col-6">
+								<h4 class="card-title">
+									{{ stats.courses }}<br>
+									Réponses</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="text-warning card border-warning mb-3 text-center">
+					<div class="card-body">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="col-5">
+								<i class="fas fa-eye fa-7x"></i>
+							</div>
+							<div class="col-6">
+								<h4 class="card-title">{{ stats.histories }}<br>
+									Vues</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card text-primary border-primary mb-3 text-center">
+					<div class="card-body">
+						<div class="row d-flex justify-content-between align-items-center">
+							<div class="col-5">
+								<i class="fas fa-comments fa-7x"></i>
+							</div>
+							<div class="col-6">
+								<h4 class="card-title">{{ stats.comments }}<br>
+									Avis</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr><br>
+
+		<div class="row">
+			<div class="col">
+				<div class="card border-light mb-3">
+					<h2 class="card-title text-success card-header d-flex justify-content-between">
+						Réponses les + populaires
+						<i class="fas fa-arrow-up fa-lg"></i>
+					</h2>
+					<div class="card-body">
+						<table class="table table-hover">
+							<thead>
+								<tr class="table-light">
+									<th>Réponse</th>
+									<th>Formateur</th>
+									<th>Moyenne</th>
+								</tr>
+							</thead>
+						</tr>
+					</thead>
+					<tbody>
+						{% for course in bestCourses %}
+							<tr>
+								<td>{{course.title}}</td>
+								<td>
+									<img src="{{course.picture}}" alt="" class="avatar avatar-micro">
+									{{course.firstName}}
+									{{course.lastName}}
+								</td>
+								<td class="text-center">
+									<span class="badge badge-dark">
+										{{course.note | number_format(1, ",", " ")}}
+									</span>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card border-light">
+			<h2 class="card-title card-header text-danger d-flex justify-content-between">
+				Réponses les - populaires
+				<i class="fas fa-arrow-down fa-lg"></i>
+			</h2>
+			<div class="card-body">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-light">
+							<th>Réponse</th>
+							<th>Formateur</th>
+							<th>Moyenne</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for course in worstCourses %}
+							<tr>
+								<td>{{course.title}}</td>
+								<td>
+									<img src="{{course.picture}}" alt="" class="avatar avatar-micro">
+									{{course.firstName}}
+									{{course.lastName}}
+								</td>
+								<td class="text-center">
+									<span class="badge badge-dark">
+										{{course.note | number_format(1, ",", " ")}}
+									</span>
+								</td>
+							</tr>
+						{% endfor %}
+
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div></div>{% endblock %}
